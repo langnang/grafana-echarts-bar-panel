@@ -6,8 +6,8 @@ import {
 } from 'app/plugins/sdk';
 
 loadPluginCss({
-  dark: 'plugins/echarts-panel-demo/css/dark.css',
-  light: 'plugins/echarts-panel-demo/css/light.css',
+  dark: 'plugins/echarts-bar-panel/css/dark.css',
+  light: 'plugins/echarts-bar-panel/css/light.css',
 });
 
 export {

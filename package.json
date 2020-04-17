@@ -1,7 +1,7 @@
 {
-  "name": "echarts-panel-demo",
+  "name": "echarts-bar-panel",
   "version": "1.0.0",
-  "description": "echarts panel demo for grafana",
+  "description": "Bar panel for Grafana by Echarts",
   "main": "src/module.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

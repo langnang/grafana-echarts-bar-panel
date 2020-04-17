@@ -1,12 +1,11 @@
 {
-  "name": "empty-panel",
-  "description": "Empty Panel for Grafana",
+  "name": "echarts-bar-panel",
+  "description": "Bar panel for Grafana by Echarts",
   "main": "src/main.js",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components"
   ],
-  "dependencies": {
-  }
+  "dependencies": {}
 }

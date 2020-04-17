@@ -105,8 +105,8 @@ export class Controller extends MetricsPanelCtrl {
   }
 
   onInitEditMode() {
-    this.addEditorTab('Options', 'public/plugins/echarts-panel-demo/partials/options.html', 2);
-    this.addEditorTab('Dev', 'public/plugins/echarts-panel-demo/partials/dev.html', 3);
+    this.addEditorTab('Options', 'public/plugins/echarts-bar-panel/partials/options.html', 2);
+    this.addEditorTab('Dev', 'public/plugins/echarts-bar-panel/partials/dev.html', 3);
   }
 
   // 使用AJAX异步请求数据，当成功后调用this.onDataReceived()。
