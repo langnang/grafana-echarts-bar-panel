@@ -3,6 +3,10 @@ import {
 } from 'app/plugins/sdk';
 import echarts from './libs/echarts.min';
 import './style.css!';
+import xAxis from './js/xAxis';
+import yAxis from './js/yAxis';
+import series from './js/series';
+import targetsData from './scripts/targetsData';
 
 export class Controller extends MetricsPanelCtrl {
   // 构造方法，在对象被创建时或实例化时调用
@@ -19,19 +23,45 @@ export class Controller extends MetricsPanelCtrl {
       url: '',
       method: 'POST',
       upInterval: 60000,
-      format: 'Year',
-      columns: [],
+      xAxisOpts: {
+        // show: true,
+        type: "category",
+        // boundaryGap: true,
+        format: 'Series',
+        column: "",
+      },
+      yAxisOpts: {
+        type: "value",
+        unit: "",
+      },
+      seriesOpts: {
+        columns: [],
+        column: "",
+        symbol_column: "",
+        main_color: "red",
+        symbol_color: "white",
+        children: []
+      },
+      opts: {},
       chartsOption: {
+        legend: {
+
+        },
+        grid: {
+          top: '15px',
+          right: '0px',
+          bottom: '25px',
+          left: '25px',
+          containLabel: false,
+        },
         xAxis: {
-          type: "category",
-          boundaryGap: false,
           data: [],
         },
         yAxis: {
           type: "value",
         },
         series: [{
-          type: "line",
+          type: "bar",
           data: [],
           smooth: false,
         }],
@@ -48,12 +78,17 @@ export class Controller extends MetricsPanelCtrl {
             dataColumn: "",
           },
         },
+        colors: ['red', 'blue']
       },
       log: false,
     };
     // Lodash，分配来源对象的可枚举属性到目标对象所有解析为undefined的属性上
     // 遍历panelDefaults给对象this.panel添加字段，并保持原来字段的值
+    // console.log(xAxis);
+
     _.defaults(this.panel, panelDefaults);
+    console.log(this.panel);
+    // new xAxis(this.panel.xAxisOpts);
     if (this.panel.log) console.log(this);
     if (this.panel.log) console.log(_);
     // DataSource 查询成功后触发
@@ -72,29 +107,39 @@ export class Controller extends MetricsPanelCtrl {
 
   onDataReceived(dataList) {
     if (this.panel.log) console.log(dataList);
-    const _data = dataList[0];
-    this.panel.columns = [..._data.columns.map(v => v.text), ""]; // [ "name","value" ]
-    if (this.panel.log) console.log(this.panel.columns);
-    // 过滤备选列
-    this.panel._chartsOption.xAxis.columns = this.panel.columns.filter(v => v != this.panel._chartsOption.series.line.dataColumn);
-    if (this.panel.log) console.log(this.panel._chartsOption.xAxis.columns);
-    this.panel._chartsOption.series.line.columns = this.panel.columns.filter(v => v != this.panel._chartsOption.xAxis.dataColumn);
-    if (this.panel.log) console.log(this.panel._chartsOption.series.line.columns);
+    // console.log(targetsData(dataList, this.panel.targets));
+    this.panel._data = targetsData(dataList, this.panel.targets);
+    this.panel._xAxis = new xAxis(this.panel.xAxisOpts, this.panel._data);
+    this.panel._yAxis = new yAxis(this.panel.yAxisOpts, this.panel._data);
+    this.panel._series = new series(this.panel.seriesOpts, this.panel._data);
+    this.panel.seriesOpts.columns = this.panel._series.$columns();
+    this.panel.chartsOption.xAxis = this.panel._xAxis.print();
+    this.panel.chartsOption.yAxis = this.panel._yAxis.print();
+    this.panel.chartsOption.series = this.panel._series.print();
+    console.log(this.panel);
+    // const _data = dataList[0];
+    // this.panel.columns = [..._data.columns.map(v => v.text), ""]; // [ "name","value" ]
+    // if (this.panel.log) console.log(this.panel.columns);
+    // // 过滤备选列
+    // this.panel._chartsOption.xAxis.columns = this.panel.columns.filter(v => v != this.panel._chartsOption.series.line.dataColumn);
+    // if (this.panel.log) console.log(this.panel._chartsOption.xAxis.columns);
+    // this.panel._chartsOption.series.line.columns = this.panel.columns.filter(v => v != this.panel._chartsOption.xAxis.dataColumn);
+    // if (this.panel.log) console.log(this.panel._chartsOption.series.line.columns);
 
-    // 取值
-    this.panel.chartsOption.xAxis.data = _data.rows.map(v => this.panel.columns.indexOf(this.panel._chartsOption.xAxis.dataColumn) == this.panel.columns.length - 1 ? null : v[this.panel.columns.indexOf(this.panel._chartsOption.xAxis.dataColumn)]);
-    if (this.panel.log) console.log(this.panel.chartsOption.xAxis.data);
-    this.panel.chartsOption.series[0].data = _data.rows.map(v => this.panel.columns.indexOf(this.panel._chartsOption.series.line.dataColumn) == this.panel.columns.length - 1 ? null : v[this.panel.columns.indexOf(this.panel._chartsOption.series.line.dataColumn)]);
-    if (this.panel.log) console.log(this.panel.chartsOption.series[0].data);
+    // // 取值
+    // this.panel.chartsOption.xAxis.data = _data.rows.map(v => this.panel.columns.indexOf(this.panel._chartsOption.xAxis.dataColumn) == this.panel.columns.length - 1 ? null : v[this.panel.columns.indexOf(this.panel._chartsOption.xAxis.dataColumn)]);
+    // if (this.panel.log) console.log(this.panel.chartsOption.xAxis.data);
+    // this.panel.chartsOption.series[0].data = _data.rows.map(v => this.panel.columns.indexOf(this.panel._chartsOption.series.line.dataColumn) == this.panel.columns.length - 1 ? null : v[this.panel.columns.indexOf(this.panel._chartsOption.series.line.dataColumn)]);
+    // if (this.panel.log) console.log(this.panel.chartsOption.series[0].data);
 
-    if (this.panel._chartsOption.series.line.areaStyle) {
-      this.panel.chartsOption.series[0].areaStyle = {};
-    } else {
-      delete this.panel.chartsOption.series[0].areaStyle;
-    }
+    // if (this.panel._chartsOption.series.line.areaStyle) {
+    //   this.panel.chartsOption.series[0].areaStyle = {};
+    // } else {
+    //   delete this.panel.chartsOption.series[0].areaStyle;
+    // }
 
-    if (this.panel.log) console.log(this.panel.chartsOption);
-    if (this.panel.log) console.log(this.panel._chartsOption);
+    // if (this.panel.log) console.log(this.panel.chartsOption);
+    // if (this.panel.log) console.log(this.panel._chartsOption);
     this.refreshed = true;
     this.render();
     this.refreshed = false;
@@ -105,8 +150,10 @@ export class Controller extends MetricsPanelCtrl {
   }
 
   onInitEditMode() {
-    this.addEditorTab('Options', 'public/plugins/echarts-bar-panel/partials/options.html', 2);
-    this.addEditorTab('Dev', 'public/plugins/echarts-bar-panel/partials/dev.html', 3);
+    this.addEditorTab('Axis', 'public/plugins/echarts-bar-panel/partials/axis.html', 2);
+    this.addEditorTab('Options', 'public/plugins/echarts-bar-panel/partials/options.html', 3);
+    this.addEditorTab('Series', 'public/plugins/echarts-bar-panel/partials/series.html', 4);
+    this.addEditorTab('Dev', 'public/plugins/echarts-bar-panel/partials/dev.html', 5);
   }
 
   // 使用AJAX异步请求数据，当成功后调用this.onDataReceived()。
@@ -185,7 +232,32 @@ export class Controller extends MetricsPanelCtrl {
         let option = ctrl.panel.chartsOption;
         if (ctrl.panel.log) console.log(option);
         // 配置Echarts实例
-        myChart.setOption(option);
+        // myChart.setOption(option);
+        console.log(JSON.stringify(ctrl.panel.chartsOption));
+        myChart.setOption(ctrl.panel.chartsOption);
+        // myChart.setOption({
+        //   xAxis: {
+        //     type: 'category',
+        //     data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        //   },
+        //   yAxis: {
+        //     type: 'value'
+        //   },
+        //   series: [{
+        //     data: [120, 200, 150, 80, 70, 110, 130],
+        //     type: 'bar',
+        //     itemStyle: {
+        //       normal: {
+        //         color: function (params) {
+        //           var colorList = [
+        //             'red', 'white', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red'
+        //           ];
+        //           return colorList[params.dataIndex];
+        //         }
+        //       }
+        //     }
+        //   }]
+        // });
       }
     }
 

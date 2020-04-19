@@ -5,7 +5,8 @@
   "main": "src/module.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "grunt"
+    "build": "grunt",
+    "watch": "grunt watch"
   },
   "author": "Advantech",
   "license": "ISC",

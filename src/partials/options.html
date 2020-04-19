@@ -1,25 +1,26 @@
 <div class="editor-row">
 
     <div class="section gf-form-group">
-        <h5 class="section-heading">xAis</h5>
-        <div class="gf-form" checked="ctrl.panel.chartsOption.xAxis.boundaryGap" on-change="ctrl.refresh()">
-            <label for="check-xAxis-boundaryGap-show" class="gf-form-label width-7">boundaryGap</label>
-            <div class="gf-form-switch ">
-                <input id="check-xAxis-boundaryGap-show" type="checkbox"
-                    ng-model="ctrl.panel.chartsOption.xAxis.boundaryGap" ng-change="ctrl.refresh()"
-                    class="ng-pristine ng-untouched ng-valid ng-not-empty">
-                <label for="check-xAxis-boundaryGap-show" data-on="Yes" data-off="No"></label>
-            </div>
+        <h5 class="section-heading">Colors</h5>
+        <div class="gf-form">
+            <span class="gf-form-label width-6">main</span>
+            <input type="text" class="gf-form-input max-width-6" placeholder="random"
+                ng-model="ctrl.panel.seriesOpts.main_color" ng-change="ctrl.refresh()" ng-model-onblur="">
         </div>
         <div class="gf-form">
-            <label class="gf-form-label width-7">dataColumn</label>
+            <span class="gf-form-label width-6">symbol</span>
+            <input type="text" class="gf-form-input max-width-6" placeholder="random"
+                ng-model="ctrl.panel.seriesOpts.symbol_color" ng-change="ctrl.refresh()">
+        </div>
+        <div class="gf-form">
+            <label class="gf-form-label width-7">symbolColumn</label>
             <div class="gf-form-select-wrapper">
-                <select class="gf-form-input" ng-model="ctrl.panel._chartsOption.xAxis.dataColumn"
-                    ng-options="i for i in ctrl.panel._chartsOption.xAxis.columns" ng-change="ctrl.refresh()"></select>
+                <select class="gf-form-input" ng-model="ctrl.panel.seriesOpts.symbol_column"
+                    ng-options="i for i in ctrl.panel.seriesOpts.columns" ng-change="ctrl.refresh()"></select>
             </div>
         </div>
     </div>
-    <div class="section gf-form-group">
+    <!-- <div class="section gf-form-group">
         <h5 class="section-heading">Line</h5>
         <div class="gf-form">
             <label class="gf-form-label width-7">dataColumn</label>
@@ -46,5 +47,5 @@
                 <label for="check-line-areaStyle-show" data-on="Yes" data-off="No"></label>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
