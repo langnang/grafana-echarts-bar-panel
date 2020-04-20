@@ -3,30 +3,50 @@
         <ul class="edit-sidemenu">
             <li ng-repeat="(index,series) in ctrl.panel.chartsOption.series track by $index"
                 ng-class="{active: ctrl.panel.seriesOpts.activeStyleIndex == index }" class="">
-                <a ng-click="ctrl.panel.seriesOpts.activeStyleIndex = index">{{index}}</a>
+                <a ng-click="ctrl.panel.seriesOpts.activeStyleIndex = index">{{index}} - {{series.type}}</a>
             </li>
         </ul>
     </aside>
-    <div class="edit-tab-content" ng-repeat="(index,serie) in ctrl.panel.chartsOption.series track by $index"
+    <div class="edit-tab-content" ng-repeat="(index,series) in ctrl.panel.chartsOption.series track by $index"
         ng-if="ctrl.panel.seriesOpts.activeStyleIndex == index">
         <!-- Bar 柱状图 -->
-        <div ng-if="serie.type=='bar'">
+        <div ng-if="series.type=='bar'">
             <div class="section gf-form-group">
                 <h5 class="section-heading width-5">Width</h5>
+                <div class="gf-form">
+                    <span class="gf-form-label width-8">barWidth</span>
+                    <input type="text" class="gf-form-input max-width-6" ng-model="series.barWidth"
+                        ng-change="ctrl.refresh()">
+                </div>
+                <div class="gf-form">
+                    <span class="gf-form-label width-8">barMaxWidth</span>
+                    <input type="text" class="gf-form-input max-width-6" ng-model="series.barMaxWidth"
+                        ng-change="ctrl.refresh()">
+                </div>
+                <div class="gf-form">
+                    <span class="gf-form-label width-8">barMinWidth</span>
+                    <input type="text" class="gf-form-input max-width-6" ng-model="series.barMinWidth"
+                        ng-change="ctrl.refresh()">
+                </div>
             </div>
             <div class="section gf-form-group">
                 <h5 class="section-heading width-5">height</h5>
+                <div class="gf-form">
+                    <span class="gf-form-label width-8">barMinHeight</span>
+                    <input type="text" class="gf-form-input max-width-6" ng-model="series.barMinHeight"
+                        ng-change="ctrl.refresh()">
+                </div>
             </div>
             <div class="section gf-form-group">
                 <h5 class="section-heading width-5">Distance</h5>
                 <div class="gf-form">
-                    <span class="gf-form-label width-6">barGap</span>
-                    <input type="text" class="gf-form-input max-width-6" ng-model="serie.barGap"
+                    <span class="gf-form-label width-8">barGap</span>
+                    <input type="text" class="gf-form-input max-width-6" ng-model="series.barGap"
                         ng-change="ctrl.refresh()">
                 </div>
                 <div class="gf-form">
-                    <span class="gf-form-label width-6">barCategoryGap</span>
-                    <input type="text" class="gf-form-input max-width-6" ng-model="serie.barCategoryGap"
+                    <span class="gf-form-label width-8">barCategoryGap</span>
+                    <input type="text" class="gf-form-input max-width-6" ng-model="series.barCategoryGap"
                         ng-change="ctrl.refresh()">
                 </div>
             </div>

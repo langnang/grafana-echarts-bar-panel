@@ -33,6 +33,7 @@ export class Controller extends MetricsPanelCtrl {
       },
       yAxisOpts: {
         type: "value",
+        column: "",
         unit: "",
       },
       seriesOpts: {
@@ -56,31 +57,14 @@ export class Controller extends MetricsPanelCtrl {
         legend: {
         },
         grid: {
-          top: '15',
-          right: '0',
-          bottom: '25',
-          left: '25',
-          containLabel: false,
+          top: '10',
+          right: '10',
+          bottom: '5',
+          left: '5',
+          containLabel: true,
         },
-        xAxis: {
-          show: true,
-          splitLine: {
-            show: true,
-            lineStyle: {
-              type: "solid",
-              opacity: 0.3
-            }
-          },
-        },
-        yAxis: {
-          type: "value",
-          splitLine: {
-            lineStyle: {
-              type: "solid",
-              opacity: 0.3
-            }
-          }
-        },
+        xAxis: {},
+        yAxis: {},
         tooltip: {
           show: true,
         },
@@ -114,7 +98,6 @@ export class Controller extends MetricsPanelCtrl {
     // 请求数据
     this.refreshData();
   }
-
   onDataReceived(dataList) {
     if (this.panel.log) console.log(dataList);
     // console.log(targetsData(dataList, this.panel.targets));
@@ -123,8 +106,9 @@ export class Controller extends MetricsPanelCtrl {
     this.panel._yAxis = new yAxis(this.panel.yAxisOpts, this.panel._data);
     this.panel._series = new series(this.panel.seriesOpts, this.panel._data);
     this.panel.seriesOpts.columns = this.panel._series.$columns();
-    _.defaultsDeep(this.panel.chartsOption.xAxis, this.panel._xAxis.print());
-    _.defaultsDeep(this.panel.chartsOption.yAxis, this.panel._yAxis.print());
+    this.panel.chartsOption.xAxis = this.panel._xAxis.print();
+    this.panel.chartsOption.yAxis = this.panel._yAxis.print();
+    this.panel.seriesOpts.children = this.panel._series.print();
     this.panel.chartsOption.series = this.panel._series.print();
     console.log(this.panel);
     // const _data = dataList[0];
@@ -154,18 +138,15 @@ export class Controller extends MetricsPanelCtrl {
     this.render();
     this.refreshed = false;
   }
-
   onDataError(err) {
     this.render();
   }
-
   onInitEditMode() {
-    this.addEditorTab('Axis', 'public/plugins/echarts-bar-panel/partials/axis.html', 2);
+    this.addEditorTab('Axes', 'public/plugins/echarts-bar-panel/partials/axes.html', 2);
     this.addEditorTab('Options', 'public/plugins/echarts-bar-panel/partials/options.html', 3);
     this.addEditorTab('Series', 'public/plugins/echarts-bar-panel/partials/series.html', 4);
-    this.addEditorTab('Dev', 'public/plugins/echarts-bar-panel/partials/dev.html', 5);
+    // this.addEditorTab('Dev', 'public/plugins/echarts-bar-panel/partials/dev.html', 5);
   }
-
   // 使用AJAX异步请求数据，当成功后调用this.onDataReceived()。
   // 自执行设置
   refreshData() {
@@ -197,7 +178,6 @@ export class Controller extends MetricsPanelCtrl {
       this.refreshData();
     }, _this.panel.upInterval);
   }
-
   // 当Controller被Angular编译后执行
   link(scope, elem, attrs, ctrl) {
     if (ctrl.panel.log) console.log(scope);
@@ -243,7 +223,7 @@ export class Controller extends MetricsPanelCtrl {
         if (ctrl.panel.log) console.log(option);
         // 配置Echarts实例
         // myChart.setOption(option);
-        console.log(JSON.stringify(ctrl.panel.chartsOption));
+        // console.log(JSON.stringify(ctrl.panel.chartsOption));
         myChart.clear();
         myChart.setOption(ctrl.panel.chartsOption, true);
         // myChart.setOption({
