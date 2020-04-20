@@ -36,14 +36,7 @@ System.register([], function (_export, _context) {
                 function yAxis(options, data) {
                     _classCallCheck(this, yAxis);
 
-                    this.type = options.type || 'value';
                     this.column = options.column || '';
-                    this.splitLine = {
-                        lineStyle: {
-                            type: "solid",
-                            opacity: 0.3
-                        }
-                    };
                     this._data = data;
                     this.$init();
                 }
@@ -51,7 +44,7 @@ System.register([], function (_export, _context) {
                 _createClass(yAxis, [{
                     key: '$init',
                     value: function $init() {
-                        console.log(this);
+                        // console.log(this);
                         // this.$data();
                     }
                 }, {
@@ -62,7 +55,7 @@ System.register([], function (_export, _context) {
                     value: function $data() {
                         var index = this._data[0].columns.indexOf(this.column);
                         index = index > -1 ? index : 1;
-                        console.log(index);
+                        // console.log(index);
                         this.data = this._data[0].rows.map(function (v) {
                             return v[index];
                         });

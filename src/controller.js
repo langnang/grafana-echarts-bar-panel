@@ -28,6 +28,7 @@ export class Controller extends MetricsPanelCtrl {
         type: "category",
         // boundaryGap: true,
         format: 'Series',
+        formatter: "vertical",
         column: "",
       },
       yAxisOpts: {
@@ -37,28 +38,47 @@ export class Controller extends MetricsPanelCtrl {
       seriesOpts: {
         columns: [],
         column: "",
+        activeStyleIndex: 0,
         symbol_column: "",
-        main_color: "red",
-        symbol_color: "white",
+        main_color: "#7EB26D",
+        symbol_color: "#ED8128",
+        data: [],
         children: []
       },
-      opts: {},
+      opts: {
+        activeStyleIndex: 0
+      },
       chartsOption: {
         legend: {
-
         },
         grid: {
-          top: '15px',
-          right: '0px',
-          bottom: '25px',
-          left: '25px',
+          top: '15',
+          right: '0',
+          bottom: '25',
+          left: '25',
           containLabel: false,
         },
         xAxis: {
-          data: [],
+          show: true,
+          splitLine: {
+            show: true,
+            lineStyle: {
+              type: "solid",
+              opacity: 0.3
+            }
+          },
         },
         yAxis: {
           type: "value",
+          splitLine: {
+            lineStyle: {
+              type: "solid",
+              opacity: 0.3
+            }
+          }
+        },
+        tooltip: {
+          show: true,
         },
         series: [{
           type: "bar",
@@ -113,8 +133,8 @@ export class Controller extends MetricsPanelCtrl {
     this.panel._yAxis = new yAxis(this.panel.yAxisOpts, this.panel._data);
     this.panel._series = new series(this.panel.seriesOpts, this.panel._data);
     this.panel.seriesOpts.columns = this.panel._series.$columns();
-    this.panel.chartsOption.xAxis = this.panel._xAxis.print();
-    this.panel.chartsOption.yAxis = this.panel._yAxis.print();
+    _.defaultsDeep(this.panel.chartsOption.xAxis, this.panel._xAxis.print());
+    _.defaultsDeep(this.panel.chartsOption.yAxis, this.panel._yAxis.print());
     this.panel.chartsOption.series = this.panel._series.print();
     console.log(this.panel);
     // const _data = dataList[0];
@@ -234,7 +254,8 @@ export class Controller extends MetricsPanelCtrl {
         // 配置Echarts实例
         // myChart.setOption(option);
         console.log(JSON.stringify(ctrl.panel.chartsOption));
-        myChart.setOption(ctrl.panel.chartsOption);
+        myChart.clear();
+        myChart.setOption(ctrl.panel.chartsOption, true);
         // myChart.setOption({
         //   xAxis: {
         //     type: 'category',

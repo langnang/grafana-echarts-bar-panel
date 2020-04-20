@@ -55,7 +55,7 @@ System.register([], function (_export, _context) {
                 _createClass(series, [{
                     key: '$init',
                     value: function $init() {
-                        console.log(this);
+                        // console.log(this);
                         this.$data();
                         this.$color();
                     }
@@ -86,7 +86,7 @@ System.register([], function (_export, _context) {
                     value: function $data() {
                         var index = this._data[0].columns.indexOf(this.column);
                         index = index > -1 ? index : 1;
-                        console.log(index);
+                        // console.log(index);
                         this.children[0].data = this._data[0].rows.map(function (v) {
                             return v[index];
                         });
@@ -94,7 +94,7 @@ System.register([], function (_export, _context) {
                 }, {
                     key: 'print',
                     value: function print(toString) {
-                        console.log(this);
+                        // console.log(this);
                         if (toString) {
                             return JSON.stringify(this.children);
                         }

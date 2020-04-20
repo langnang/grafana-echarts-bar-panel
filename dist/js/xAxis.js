@@ -36,23 +36,11 @@ System.register([], function (_export, _context) {
                 function xAxis(options, data) {
                     _classCallCheck(this, xAxis);
 
-                    this.show = options.show || true;
                     this.type = options.type || 'category';
                     this.format = options.format || 'YYYY--MM-DD';
                     this.column = options.column || '';
-                    this.splitLine = {
-                        show: true,
-                        lineStyle: {
-                            type: "solid",
-                            opacity: 0.3
-                        }
-                    };
-                    this.axisLabel = {
-                        formatter: function formatter(value) {
-                            return value.split("").join("\n");
-                        }
-                    };
-                    this.data = options.data || [];
+                    this.data = [];
+                    this.axisLabel = {};
                     this._data = data;
                     this._options = options;
                     this.$init();
@@ -61,7 +49,7 @@ System.register([], function (_export, _context) {
                 _createClass(xAxis, [{
                     key: '$init',
                     value: function $init() {
-                        console.log(this);
+                        this.$formatter();
                         this.$data();
                     }
                 }, {
@@ -72,14 +60,25 @@ System.register([], function (_export, _context) {
                     value: function $data() {
                         var index = this._data[0].columns.indexOf(this.column);
                         index = index > -1 ? index : 0;
-                        console.log(index);
                         this.data = this._data[0].rows.map(function (v) {
                             return v[index];
                         });
                     }
                 }, {
-                    key: '$show',
-                    value: function $show() {}
+                    key: '$formatter',
+                    value: function $formatter() {
+                        console.log(this._options.formatter);
+                        if (this._options.formatter == 'horizontal') {
+                            this.axisLabel.formatter = function (v) {
+                                return v;
+                            };
+                        } else if (this._options.formatter == 'vertical') {
+                            this.axisLabel.formatter = function (v) {
+                                return v.split("").join("\n");
+                            };
+                        }
+                        console.log(this.axisLabel.formatter);
+                    }
                 }, {
                     key: '$type',
                     value: function $type() {}
@@ -89,6 +88,7 @@ System.register([], function (_export, _context) {
                 }, {
                     key: 'print',
                     value: function print(toString) {
+                        console.log(this);
                         if (toString) {
                             return JSON.stringify(this);
                         }

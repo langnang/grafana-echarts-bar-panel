@@ -19,7 +19,7 @@ export default class series {
     }
 
     $init() {
-        console.log(this);
+        // console.log(this);
         this.$data();
         this.$color();
     }
@@ -38,12 +38,12 @@ export default class series {
     $data() {
         let index = this._data[0].columns.indexOf(this.column);
         index = index > -1 ? index : 1;
-        console.log(index);
+        // console.log(index);
         this.children[0].data = this._data[0].rows.map(v => v[index]);
     }
 
     print(toString) {
-        console.log(this);
+        // console.log(this);
         if (toString) {
             return JSON.stringify(this.children);
         }
