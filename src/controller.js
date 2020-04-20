@@ -43,6 +43,10 @@ export class Controller extends MetricsPanelCtrl {
         main_color: "#7EB26D",
         symbol_color: "#ED8128",
         data: [],
+        barOpts: {
+          barGap: [],
+          barCategoryGap: [],
+        },
         children: []
       },
       opts: {
@@ -85,20 +89,6 @@ export class Controller extends MetricsPanelCtrl {
           data: [],
           smooth: false,
         }],
-      },
-      _chartsOption: {
-        xAxis: {
-          columns: [],
-          dataColumn: "",
-        },
-        series: {
-          line: {
-            areaStyle: false,
-            columns: [],
-            dataColumn: "",
-          },
-        },
-        colors: ['red', 'blue']
       },
       log: false,
     };

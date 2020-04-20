@@ -1,7 +1,15 @@
 export default function targetsData(data, targets) {
-    console.log(data);
     return targets.map((value, index) => {
-        console.log(value, index);
+        if (!data[index]) {
+            return {
+                refId: value.refId,
+                format: value.format,
+                datapoints: [],
+                target: [],
+                columns: [],
+                rows: []
+            }
+        }
         return {
             refId: value.refId,
             format: value.format,
