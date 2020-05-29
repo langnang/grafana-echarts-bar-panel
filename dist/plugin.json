@@ -1,6 +1,6 @@
 {
   "type": "panel",
-  "name": "Echarts Bar Panel",
+  "name": "Bar Echarts",
   "id": "echarts-bar-panel",
   "info": {
     "description": "Bar panel for Grafana by Echarts",
@@ -8,9 +8,7 @@
       "name": "Advantech",
       "url": "http://grafana.com"
     },
-    "keywords": [
-      "panel"
-    ],
+    "keywords": ["panel"],
     "logos": {
       "small": "src/img/logo.png",
       "large": "src/img/logo.png"

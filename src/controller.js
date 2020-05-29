@@ -189,7 +189,7 @@ export class Controller extends MetricsPanelCtrl {
     ctrl.refreshed = true;
 
     function setHeight() {
-      let height = ctrl.height || panel.height || ctrl.row.height;
+      let height = ctrl.height || ctrl.panel.height;
       if (_.isString(height)) {
         height = parseInt(height.replace('px', ''), 10);
       }
