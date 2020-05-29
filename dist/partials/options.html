@@ -1,0 +1,101 @@
+<div class="edit-tab-with-sidemenu">
+    <aside class="edit-sidemenu-aside">
+        <ul class="edit-sidemenu">
+            <li ng-class="{active: ctrl.panel.opts.activeStyleIndex === 0 }" class="">
+                <a ng-click="ctrl.panel.opts.activeStyleIndex = 0">Title</a>
+            </li>
+            <li ng-class="{active: ctrl.panel.opts.activeStyleIndex === 1 }" class="">
+                <a ng-click="ctrl.panel.opts.activeStyleIndex = 1">Legend</a>
+            </li>
+            <li ng-class="{active: ctrl.panel.opts.activeStyleIndex === 2 }" class="">
+                <a ng-click="ctrl.panel.opts.activeStyleIndex = 2">Grid</a>
+            </li>
+            <li ng-class="{active: ctrl.panel.opts.activeStyleIndex === 11 }" class="">
+                <a ng-click="ctrl.panel.opts.activeStyleIndex = 11">Tootip</a>
+            </li>
+            <li ng-class="{active: ctrl.panel.opts.activeStyleIndex === 13 }" class="">
+                <a ng-click="ctrl.panel.opts.activeStyleIndex = 13">Toolbox</a>
+            </li>
+            <li ng-class="{active: ctrl.panel.opts.activeStyleIndex === 25 }" class="">
+                <a ng-click="ctrl.panel.opts.activeStyleIndex = 25">Color</a>
+            </li>
+        </ul>
+    </aside>
+    <div class="edit-tab-content">
+        <div ng-if="ctrl.panel.opts.activeStyleIndex == 0">
+            <div class="section gf-form-group">
+                <h5 class="section-heading width-5">Title</h5>
+            </div>
+        </div>
+        <div ng-if="ctrl.panel.opts.activeStyleIndex == 1">
+            <div class="section gf-form-group">
+                <h5 class="section-heading width-5">Legend</h5>
+            </div>
+        </div>
+        <div ng-if="ctrl.panel.opts.activeStyleIndex == 2">
+            <div class="section gf-form-group">
+                <h5 class="section-heading width-5">Margin</h5>
+                <div class="gf-form">
+                    <span class="gf-form-label width-6">top</span>
+                    <input type="text" class="gf-form-input max-width-6" ng-model="ctrl.panel.chartsOption.grid.top"
+                        ng-change="ctrl.refresh()">
+                </div>
+                <div class="gf-form">
+                    <span class="gf-form-label width-6">right</span>
+                    <input type="text" class="gf-form-input max-width-6" ng-model="ctrl.panel.chartsOption.grid.right"
+                        ng-change="ctrl.refresh()">
+                </div>
+                <div class="gf-form">
+                    <span class="gf-form-label width-6">bottom</span>
+                    <input type="text" class="gf-form-input max-width-6" ng-model="ctrl.panel.chartsOption.grid.bottom"
+                        ng-change="ctrl.refresh()">
+                </div>
+                <div class="gf-form">
+                    <span class="gf-form-label width-6">left</span>
+                    <input type="text" class="gf-form-input max-width-6" ng-model="ctrl.panel.chartsOption.grid.left"
+                        ng-change="ctrl.refresh()">
+                </div>
+            </div>
+        </div>
+        <div ng-if="ctrl.panel.opts.activeStyleIndex == 11">
+            <div class="section gf-form-group">
+                <h5 class="section-heading width-5">Tootip</h5>
+                <div class="gf-form" checked="ctrl.panel.chartsOption.tooltip.show" on-change="ctrl.refresh()">
+                    <label class="gf-form-label width-7">show</label>
+                    <div class="gf-form-switch ">
+                        <input id="check-tootip-show" type="checkbox" ng-model="ctrl.panel.chartsOption.tooltip.show"
+                            ng-change="ctrl.refresh()" class="ng-pristine ng-untouched ng-valid ng-not-empty">
+                        <label for="check-tootip-show" data-on="Yes" data-off="No"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="ctrl.panel.opts.activeStyleIndex == 13">
+            <div class="section gf-form-group">
+                <h5 class="section-heading width-5">Toolbox</h5>
+            </div>
+        </div>
+        <div ng-if="ctrl.panel.opts.activeStyleIndex == 25">
+            <div class="section gf-form-group">
+                <h5 class="section-heading width-5">Color</h5>
+                <div class="gf-form">
+                    <span class="gf-form-label width-6">main</span>
+                    <input type="text" class="gf-form-input max-width-6" ng-model="ctrl.panel.seriesOpts.main_color"
+                        ng-change="ctrl.refresh()" ng-model-onblur="">
+                </div>
+                <div class="gf-form">
+                    <span class="gf-form-label width-6">symbol</span>
+                    <input type="text" class="gf-form-input max-width-6" ng-model="ctrl.panel.seriesOpts.symbol_color"
+                        ng-change="ctrl.refresh()">
+                </div>
+                <div class="gf-form">
+                    <label class="gf-form-label width-7">column</label>
+                    <div class="gf-form-select-wrapper">
+                        <select class="gf-form-input" ng-model="ctrl.panel.seriesOpts.symbol_column"
+                            ng-options="i for i in ctrl.panel.seriesOpts.columns" ng-change="ctrl.refresh()"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

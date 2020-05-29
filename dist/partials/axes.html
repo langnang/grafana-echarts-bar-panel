@@ -1,0 +1,73 @@
+<div class="editor-row">
+    <!-- xAxis -->
+    <div class="section gf-form-group">
+        <h5 class="section-heading">xAxis</h5>
+        <!-- show -->
+        <!-- <div class="gf-form" checked="ctrl.panel.xAxisOpts.show" on-change="ctrl.refresh()">
+            <label class="gf-form-label width-7">show</label>
+            <div class="gf-form-switch">
+                <input id="check-xaxis-show" type="checkbox" ng-model="ctrl.panel.xAxisOpts.show"
+                    ng-change="ctrl.refresh()" class="ng-pristine ng-untouched ng-valid ng-not-empty">
+                <label for="check-xaxis-show" data-on="Yes" data-off="No"></label>
+            </div>
+        </div> -->
+        <!-- boundaryGap -->
+        <!-- <div class="gf-form" checked="ctrl.panel.xAxisOpts.boundaryGap" on-change="ctrl.refresh()">
+            <label class="gf-form-label width-7">boundaryGap</label>
+            <div class="gf-form-switch ">
+                <input id="check-xaxis-boundaryGap-show" type="checkbox" ng-model="ctrl.panel.xAxisOpts.boundaryGap"
+                    ng-change="ctrl.refresh()" class="ng-pristine ng-untouched ng-valid ng-not-empty">
+                <label for="check-xaxis-boundaryGap-show" data-on="Yes" data-off="No"></label>
+            </div>
+        </div> -->
+
+        <!-- type -->
+        <div class="gf-form">
+            <label class="gf-form-label width-7">type</label>
+            <div class="gf-form-select-wrapper">
+                <select class="gf-form-input" ng-model="ctrl.panel.xAxisOpts.type" ng-options="i for i in ['category']"
+                    ng-change="ctrl.refresh()"></select>
+            </div>
+        </div>
+        <!-- type::format -->
+        <div class="gf-form" ng-if="ctrl.panel.xAxisOpts.type=='category'">
+            <label class="gf-form-label width-7">format</label>
+            <div class="gf-form-select-wrapper">
+                <select class="gf-form-input" ng-model="ctrl.panel.xAxisOpts.format" ng-options="i for i in ['Series']"
+                    ng-change="ctrl.refresh()"></select>
+            </div>
+        </div>
+        <div class="gf-form">
+            <label class="gf-form-label width-7">column</label>
+            <div class="gf-form-select-wrapper">
+                <select class="gf-form-input" ng-model="ctrl.panel.xAxisOpts.column"
+                    ng-options="i for i in ctrl.panel.seriesOpts.columns" ng-change="ctrl.refresh()"></select>
+            </div>
+        </div>
+        <div class="gf-form" ng-if="ctrl.panel.xAxisOpts.type=='category'">
+            <label class="gf-form-label width-7">formatter</label>
+            <div class="gf-form-select-wrapper">
+                <select class="gf-form-input" ng-model="ctrl.panel.xAxisOpts.formatter"
+                    ng-options="i for i in ['horizontal','vertical']" ng-change="ctrl.refresh()"></select>
+            </div>
+        </div>
+        <!-- name -->
+        <!-- nameLocation -->
+    </div>
+    <!-- yAxis -->
+    <div class="section gf-form-group">
+        <h5 class="section-heading">yAxis</h5>
+        <div class="gf-form">
+            <label class="gf-form-label width-7">column</label>
+            <div class="gf-form-select-wrapper">
+                <select class="gf-form-input" ng-model="ctrl.panel.seriesOpts.column"
+                    ng-options="i for i in ctrl.panel.seriesOpts.columns" ng-change="ctrl.refresh()"></select>
+            </div>
+        </div>
+        <div class="gf-form">
+            <label class="gf-form-label width-7">unit</label>
+            <input type="text" class="gf-form-input max-width-6" ng-model="ctrl.panel.yAxisOpts.unit"
+                ng-change="ctrl.refresh()">
+        </div>
+    </div>
+</div>
